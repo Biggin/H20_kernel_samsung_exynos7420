@@ -35,11 +35,11 @@ export $CR_ARCH
 ##########################################
 # Device specific Variables [SM-G920F]
 CR_DTSFILES_G920F="exynos7420-zeroflte_eur_open_06.dtb"
-CR_CONFG_G920F=science_defconfig
+CR_CONFG_G920F=fltexx_defconfig
 CR_VARIANT_G920F=G920F
 # Device specific Variables [SM-G925F]
 CR_DTSFILES_G925X="exynos7420-zerolte_eur_open_06.dtb"
-CR_CONFG_G925X=lineageos_zeroltexx_defconfig
+CR_CONFG_G925X=ltexx_defconfig
 CR_VARIANT_G925X=G925F
 ##########################################
 
