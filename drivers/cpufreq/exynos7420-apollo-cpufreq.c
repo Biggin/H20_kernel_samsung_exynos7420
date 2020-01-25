@@ -97,25 +97,33 @@ static struct apll_freq exynos7420_apll_freq_CA53[] = {
  * ASV group voltage table
  */
 static const unsigned int asv_voltage_7420_CA53[CPUFREQ_LEVEL_END_CA53] = {
+#ifdef CONFIG_EXYNOS7420_OVERCLOCK
+	1473750,	/* L0  2000 */
+	1398750,	/* L1  1900 */
+	1323750,	/* L2  1800 */
+	1248750,	/* L3  1700 */
+	1173750,	/* L4  1600 */
+#else
 	1168750,	/* L0  2000 */
 	1168750,	/* L1  1900 */
 	1168750,	/* L2  1800 */
 	1168750,	/* L3  1700 */
 	1168750,	/* L4  1600 */
-	1118750,	/* L5  1500 */
-	1068750,	/* L6  1400 */
-	1018750,	/* L7  1300 */
-	 981250,	/* L8  1200 */
-	 943750,	/* L9  1100 */
-	 900000,	/* L10 1000 */
-	 862500,	/* L11  900 */
-	 825000,	/* L12  800 */
-	 787500,	/* L13  700 */
-	 750000,	/* L14  600 */
-	 712500,	/* L15  500 */
-	 675000,	/* L16  400 */
-	 650000,	/* L17  300 */
-	 625000,	/* L18  200 */
+#endif
+	1081250,	/* L5  1500 */
+	1031250,	/* L6  1400 */
+	 981250,	/* L7  1300 */
+	 943750,	/* L8  1200 */
+	 906250,	/* L9  1100 */
+	 862500,	/* L10 1000 */
+	 825000,	/* L11  900 */
+	 787500,	/* L12  800 */
+	 750000,	/* L13  700 */
+	 712500,	/* L14  600 */
+	 675000,	/* L15  500 */
+	 637500,	/* L16  400 */
+	 612500,	/* L17  300 */
+	 587500,	/* L18  200 */
 };
 
 /* Minimum memory throughput in megabytes per second */
@@ -371,16 +379,9 @@ int __init exynos_cpufreq_cluster0_init(struct exynos_dvfs_info *info)
 	info->max_support_idx = max_support_idx_CA53;
 	info->min_support_idx = min_support_idx_CA53;
 	info->boost_freq = exynos7420_freq_table_CA53[L10].frequency;
-	/* booting frequency */
-	#ifdef EXYNOS7420_CPU_OVERCLOCK
-		/* booting frequency is 1.5GHz */
-		info->boot_cpu_min_qos = exynos7420_freq_table_CA53[L5].frequency;
-		info->boot_cpu_max_qos = exynos7420_freq_table_CA53[L5].frequency;	
-	#else
-		/* booting frequency is 1.4GHz */
-		info->boot_cpu_min_qos = exynos7420_freq_table_CA53[L6].frequency;
-		info->boot_cpu_max_qos = exynos7420_freq_table_CA53[L6].frequency;
-	#endif
+	/* booting frequency is 1.4GHz */
+	info->boot_cpu_min_qos = exynos7420_freq_table_CA53[L6].frequency;
+	info->boot_cpu_max_qos = exynos7420_freq_table_CA53[L6].frequency;
 #if defined(CONFIG_PMU_COREMEM_RATIO)
 	info->region_bus_table = exynos7420_region_bus_table_CA53;
 #else
